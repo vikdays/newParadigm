@@ -42,6 +42,7 @@ namespace newParadigms
                 }
                 zoo.AddNewEntity(randomAnimal);
             }
+
             Employee employee1 = new Employee("Иван", 'М', "Кормильщик");
             zoo.AddNewEntity(employee1);
 

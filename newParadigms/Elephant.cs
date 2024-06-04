@@ -2,7 +2,7 @@
 {
     class Elephant : Animal
     {
-        public Elephant() : base("слон", 100, "Трррр", new Apple(50), new Banana(20))
+        public Elephant() : base("слон", 100, "Трррр", new Apple(10), new Banana(15))
         {
         }
         public override void Feed()

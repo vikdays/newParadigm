@@ -2,7 +2,7 @@
 {
     class Wolf : Animal
     {
-        public Wolf() : base("волк", 100, "Ауф", new Apple(10), new Meat(40))
+        public Wolf() : base("волк", 100, "Ауф", new Apple(10), new Meat(30))
         {
         }
         public override void Feed()
@@ -17,6 +17,7 @@
         {
             Console.WriteLine($"Волк идает свой звук: {Voice} !");
         }
+
         public override void FeedFromEnclosure(IEnclosure enclosure)
         {
             if (enclosure != null && enclosure.FoodSupply != 0)

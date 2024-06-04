@@ -33,26 +33,34 @@
                 return false;
             }
         }
-
         public void FeedAnimal(IEnclosure enclosure, Animal animal)
         {
             if (enclosure.OpenPartOfEnclosure.Contains(animal))
-            {
-                if ((animal.Species == "тигр" && animal.HungerLevel <= 70) || (animal.Species == "слон" && animal.HungerLevel <= 30) || (animal.Species == "волк" && animal.HungerLevel <= 50))
+            {   
+                Random random = new Random();
+                if (enclosure.OpenPartOfEnclosure.Contains(animal))
                 {
-                    animal.DecreaseHungerLevel();
-                    animal.HungerLevel = 100;
-                    Console.WriteLine($"Посетитель {Name} покормил {animal.Species} едой {animal.FirstFoodType} в {enclosure.Name}.");
+                    if ((animal.Species == "тигр" && animal.HungerLevel <= 70) || (animal.Species == "слон" && animal.HungerLevel <= 30) || (animal.Species == "волк" && animal.HungerLevel <= 50))
+                    {
+                        int randomNumber = random.Next(1, 3);
+                        if (randomNumber == 1)
+                        {
+                            animal.HungerLevel += animal.FirstFoodType.Value;
+                            Console.WriteLine($"Посетитель {Name} покормил {animal.Species} едой {animal.FirstFoodType.Type} в {enclosure.Name}.");
+                        }
+                        else
+                        {
+                            animal.HungerLevel += animal.SecondFoodType.Value;
+                            Console.WriteLine($"Посетитель {Name} покормил {animal.Species} едой {animal.SecondFoodType.Type} в {enclosure.Name}.");
+                        }
+                    }
                 }
                 else
                 {
                     Console.WriteLine($"Животное {animal.Species} не голодно и отказывается от еды.");
                 }
             }
-            else
-            {
-                Console.WriteLine($"Животное {animal.Species} не находится в открытой части {enclosure.Name}.");
-            }
+           
         }
     }
 }

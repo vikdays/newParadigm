@@ -6,6 +6,7 @@
         private int Capacity { get; }
 
         public List<Animal> Animals { get; } = new List<Animal>();
+
         private readonly Dictionary<Food, int> foodInventory = new();
         public List<Animal> OpenPartOfEnclosure { get; } = new List<Animal>();
         public List<Animal> ClosePartOfEnclosure { get; } = new List<Animal>();
@@ -122,6 +123,7 @@
 
         public void FeedAnimals()
         {
+            Random random = new Random();
             if (FoodSupply <= 0)
             {
                 Console.WriteLine($"В {Name} закончилась еда, животные не могут быть покормлены.");
@@ -135,9 +137,22 @@
 
                     if ((animal.Species == "тигр" && animal.HungerLevel <= 70) || (animal.Species == "слон" && animal.HungerLevel <= 30) || (animal.Species == "волк" && animal.HungerLevel <= 50))
                     {
-                        animal.HungerLevel += (animal.FirstFoodType.Value + animal.SecondFoodType.Value);
-                        FoodSupply--;
-                        Console.WriteLine($"Животное {animal.Species} покушало {animal.FirstFoodType} и {animal.SecondFoodType}. Запас еды в вольере {Name} теперь: {FoodSupply}");
+                        
+                        int randomNumber = random.Next(1, 3);
+                        if (randomNumber == 1)
+                        {
+                            animal.HungerLevel += animal.FirstFoodType.Value;
+                            FoodSupply--;
+                            Console.WriteLine($"Животное {animal.Species} покушало {animal.FirstFoodType.Type}. Запас еды в вольере {Name} теперь: {FoodSupply}");
+                        }
+                        else
+                        {
+                            animal.HungerLevel += animal.SecondFoodType.Value;
+                            FoodSupply--;
+                            Console.WriteLine($"Животное {animal.Species} покушало {animal.SecondFoodType.Type}. Запас еды в вольере {Name} теперь: {FoodSupply}");
+                        }
+                        
+                        
                     }
                 }
                 else

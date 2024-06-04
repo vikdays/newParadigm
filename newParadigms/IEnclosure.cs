@@ -18,7 +18,6 @@
 
         bool HasSpace();
         bool IsFoodDepleted();
-       // bool CanAddAnimal(Animal animal);
 
         string CheckStatus();
         string CheckOpenPartStatus();

@@ -23,14 +23,10 @@
             if (enclosure != null)
             {
                 enclosure.ReplenishFood(amount);
-                Console.WriteLine($"{Name} пополнил запасы еды в {enclosure.Name} едой {animal.FirstFoodType} и {animal.SecondFoodType}.");
+                Console.WriteLine($"{Name} пополнил запасы еды в {enclosure.Name} едой {animal.FirstFoodType.Type} и {animal.SecondFoodType.Type}.");
             }
-            else
-            {
-                Console.WriteLine("Invalid enclosure provided.");
-            }
+            
         }
-
         public string CheckStatus()
         {
             return $"Employee {Name}, Position: {Position}, Gender: {Gender}";

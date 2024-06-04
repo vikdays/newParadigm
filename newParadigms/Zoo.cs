@@ -8,7 +8,7 @@
 
         public void PauseTimer()
         {
-            isPaused = true; // Устанавливаем флаг в true
+            isPaused = true; 
             Console.WriteLine("Таймер поставлен на паузу");
         }
 
@@ -24,21 +24,19 @@
             {
                 case Animal animal:
                     var enclosures = entityList.OfType<IEnclosure>().ToList();
-                    if (enclosures.Count != 0)
+                    var added = false;
+                    foreach (IEnclosure enclosure in enclosures)
                     {
-                        var added = false;
-                        foreach (IEnclosure enclosure in enclosures)
+                        if (enclosure.HasSpace())
                         {
-                            if (enclosure.HasSpace())
-                            {
-                                enclosure.AddAnimal(animal);
-                                Console.WriteLine($"Животное {animal.Species} добавлено в вольер {enclosure.Name}!");
-                                added = true;
-                                break;
-                            }
+                            enclosure.AddAnimal(animal);
+                            added = true;
+                            break;
                         }
+                    }
 
-                        if (added) return;
+                    if (!added)
+                    {
                         string newEnclosureName = $"Вольер {enclosures.Count + 1}";
                         int newInitialFoodSupply = 15;
                         int newEnclosureCapacity = 5;
@@ -59,7 +57,7 @@
                 case Visitor visitor:
                     entityList.Add((T)(BaseEntity)visitor);
                     break;
-            }
+            }   
         }
         public void ShuffleAnimals()
         {
@@ -67,7 +65,7 @@
 
             foreach (var enclosure in entityList.OfType<Enclosure>())
             {
-                int randomNumber = random.Next(1, enclosure.Animals.Count + 1); // Случайное число от 1 до количества животных в вольере
+                int randomNumber = random.Next(1, enclosure.Animals.Count + 1);
 
                 for (int i = 0; i < randomNumber; i++)
                 {
@@ -102,6 +100,7 @@
                 }
             }
         }
+
         public void RemoveEntity(Guid id)
         {
             var entityToRemove = entityList.FirstOrDefault(entity => entity.Id == id);
@@ -158,10 +157,8 @@
             var enclosureToRemove = enclosures.FirstOrDefault(enclosure => enclosure.Name.Equals(name));
             if (enclosureToRemove != null)
             {
-                // Удаляем всех животных из вольера
                 enclosureToRemove.ClearAnimals();
 
-                // Затем удаляем сам вольер
                 enclosures.Remove(enclosureToRemove);
             }
         }
@@ -211,13 +208,13 @@
 
             foreach (var enclosure in enclosures)
             {
-                enclosure.FeedAnimals(); // Сначала кормим животных
+                enclosure.FeedAnimals();
 
                 foreach (var animal in enclosure.Animals)
                 {
-                    if (!isPaused) // Проверяем, не находится ли таймер на паузе
+                    if (!isPaused)
                     {
-                        animal.DecreaseHungerLevel(); // Затем уменьшаем уровень голода каждого животного
+                        animal.DecreaseHungerLevel(); 
                     }
                 }
 
@@ -245,7 +242,7 @@
             try
             {
                 Employee randomEmployee = GetRandomEmployee();
-                int foodAmount = 15; // Количество еды, которое будет добавлено
+                int foodAmount = 15;
                 randomEmployee.ReplenishFood(enclosure, foodAmount);
             }
             catch (Exception ex)
